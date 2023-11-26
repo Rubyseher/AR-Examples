@@ -99,7 +99,7 @@ function initialize()
 	
 	let loader = new THREE.TextureLoader();
 	let texture = loader.load( './images/earth-sphere.jpg', render );
-	let material1 = new THREE.MeshLambertMaterial( { map: texture,  opacity: 0.7, color: new THREE.Color('darkgrey') } );
+	let material1 = new THREE.MeshLambertMaterial( { map: texture,  opacity: 1, color: new THREE.Color('white') } );
 	
 	mesh1 = new THREE.Mesh( geometry1, material1 );
 	mesh1.position.y = 1;
