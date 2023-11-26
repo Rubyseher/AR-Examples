@@ -16,11 +16,6 @@
 
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
 
-<!-- 
-  Example created by Lee Stemkoski: https://github.com/stemkoski
-  Based on the AR.js library and examples created by Jerome Etienne: https://github.com/jeromeetienne/AR.js/
--->
-
 <script>
 
 var scene, camera, renderer, clock, deltaTime, totalTime;
@@ -116,7 +111,7 @@ function initialize()
 	
 	let loader = new THREE.TextureLoader();
 	let texture = loader.load( './images/earth-sphere.jpg', render );
-	let material1 = new THREE.MeshLambertMaterial( { map: texture, opacity: 1 } );
+	let material1 = new THREE.MeshLambertMaterial( { map: texture,  opacity: 0.7, color: new THREE.Color('darkgrey') } );
 	
 	mesh1 = new THREE.Mesh( geometry1, material1 );
 	mesh1.position.y = 1;
