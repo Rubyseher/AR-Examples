@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<title>Hello, world!</title>
-	<!-- include three.js library -->
+	<title>Ar project</title>
+	
 	<script src='js/three.js'></script>
-	<!-- include jsartookit -->
+	
 	<script src="jsartoolkit5/artoolkit.min.js"></script>
 	<script src="jsartoolkit5/artoolkit.api.js"></script>
-	<!-- include threex.artoolkit -->
+	
 	<script src="threex/threex-artoolkitsource.js"></script>
 	<script src="threex/threex-artoolkitcontext.js"></script>
 	<script src="threex/threex-arbasecontrols.js"></script>
@@ -15,11 +15,6 @@
 </head>
 
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
-
-<!-- 
-  Example created by Lee Stemkoski: https://github.com/stemkoski
-  Based on the AR.js library and examples created by Jerome Etienne: https://github.com/jeromeetienne/AR.js/
--->
 
 <script>
 
@@ -38,7 +33,7 @@ function initialize()
 {
 	scene = new THREE.Scene();
 
-	let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
+	let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.1 );
 	scene.add( ambientLight );
 
 	camera = new THREE.Camera();
@@ -59,9 +54,7 @@ function initialize()
 	deltaTime = 0;
 	totalTime = 0;
 	
-	////////////////////////////////////////////////////////////
-	// setup arToolkitSource
-	////////////////////////////////////////////////////////////
+	
 
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType : 'webcam',
@@ -81,44 +74,32 @@ function initialize()
 		onResize()
 	});
 	
-	// handle resize event
+
 	window.addEventListener('resize', function(){
 		onResize()
 	});
-	
-	////////////////////////////////////////////////////////////
-	// setup arToolkitContext
-	////////////////////////////////////////////////////////////	
 
-	// create atToolkitContext
 	arToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: './data/camera_para.dat',
 		detectionMode: 'mono'
 	});
-	
-	// copy projection matrix to camera when initialization complete
+
 	arToolkitContext.init( function onCompleted(){
 		camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
 	});
 
-	////////////////////////////////////////////////////////////
-	// setup markerRoots
-	////////////////////////////////////////////////////////////
 
-	// build markerControls
 	markerRoot1 = new THREE.Group();
 	scene.add(markerRoot1);
 	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
-		type: 'pattern', patternUrl: "./data/hiro.patt",
+		type: 'pattern', patternUrl: "./data/globe.patt",
 	})
 
 	let geometry1 = new THREE.SphereGeometry(1, 32,32);
 	
 	let loader = new THREE.TextureLoader();
-	let texture = loader.load('./images/earth-sphere.jpg', function (texture) {
-    render(); // Call the render function once the texture is loaded
-});
-	let material1 = new THREE.MeshLambertMaterial( { map: texture, opacity: 0.5 } );
+	let texture = loader.load( './images/earth-sphere.jpg', render );
+	let material1 = new THREE.MeshLambertMaterial( { map: texture,  opacity: 0.7, color: new THREE.Color('darkgrey') } );
 	
 	mesh1 = new THREE.Mesh( geometry1, material1 );
 	mesh1.position.y = 1;
