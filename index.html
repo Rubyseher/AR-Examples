@@ -2,43 +2,25 @@
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<title>Ar project</title>
-	
 	<script src='js/three.js'></script>
-	
 	<script src="jsartoolkit5/artoolkit.min.js"></script>
 	<script src="jsartoolkit5/artoolkit.api.js"></script>
-	
 	<script src="threex/threex-artoolkitsource.js"></script>
 	<script src="threex/threex-artoolkitcontext.js"></script>
 	<script src="threex/threex-arbasecontrols.js"></script>
 	<script src="threex/threex-armarkercontrols.js"></script>
 </head>
-
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
-
 <script>
-
-var scene, camera, renderer, clock, deltaTime, totalTime;
-
-var arToolkitSource, arToolkitContext;
-
-var markerRoot1;
-
-var mesh1;
-
+var scene, camera, renderer, clock, deltaTime, totalTime, arToolkitSource, arToolkitContext, markerRoot1, mesh1;
 initialize();
 animate();
-
-function initialize()
-{
+function initialize() {
 	scene = new THREE.Scene();
-
 	let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.1 );
 	scene.add( ambientLight );
-
 	camera = new THREE.Camera();
 	scene.add(camera);
-
 	renderer = new THREE.WebGLRenderer({
 		antialias : true,
 		alpha: true
@@ -49,63 +31,44 @@ function initialize()
 	renderer.domElement.style.top = '0px'
 	renderer.domElement.style.left = '0px'
 	document.body.appendChild( renderer.domElement );
-
 	clock = new THREE.Clock();
 	deltaTime = 0;
 	totalTime = 0;
-	
-	
-
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType : 'webcam',
 	});
-
-	function onResize()
-	{
+	function onResize() {
 		arToolkitSource.onResize()	
 		arToolkitSource.copySizeTo(renderer.domElement)	
-		if ( arToolkitContext.arController !== null )
-		{
+		if ( arToolkitContext.arController !== null ) {
 			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)	
 		}	
 	}
-
 	arToolkitSource.init(function onReady(){
 		onResize()
 	});
-	
-
 	window.addEventListener('resize', function(){
 		onResize()
 	});
-
 	arToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: './data/camera_para.dat',
 		detectionMode: 'mono'
 	});
-
 	arToolkitContext.init( function onCompleted(){
 		camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
 	});
-
-
 	markerRoot1 = new THREE.Group();
 	scene.add(markerRoot1);
 	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
 		type: 'pattern', patternUrl: "./data/globe.patt",
 	})
-
 	let geometry1 = new THREE.SphereGeometry(1, 32,32);
-	
 	let loader = new THREE.TextureLoader();
 	let texture = loader.load( './images/earth-sphere.jpg', render );
 	let material1 = new THREE.MeshLambertMaterial( { map: texture,  opacity: 0.7, color: new THREE.Color('darkgrey') } );
-	
 	mesh1 = new THREE.Mesh( geometry1, material1 );
 	mesh1.position.y = 1;
-	
 	markerRoot1.add( mesh1 );
-	
 	let pointLight = new THREE.PointLight( 0xffffff, 1, 100 );
 	pointLight.position.set(0.5,3,2);
 	pointLight.add( 
@@ -116,33 +79,22 @@ function initialize()
 	);
 	markerRoot1.add( pointLight );
 }
-
-
-function update()
-{
+function update() {
 	if ( markerRoot1.visible )
 		mesh1.rotation.y += 0.01;
 	if ( arToolkitSource.ready !== false )
 		arToolkitContext.update( arToolkitSource.domElement );
 }
-
-
-function render()
-{
+function render() {
 	renderer.render( scene, camera );
 }
-
-
-function animate()
-{
+function animate() {
 	requestAnimationFrame(animate);
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
 	update();
 	render();
 }
-
 </script>
-
 </body>
 </html>
