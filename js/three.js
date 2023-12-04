@@ -27951,10 +27951,7 @@
 	LatheBufferGeometry.prototype = Object.create( BufferGeometry.prototype );
 	LatheBufferGeometry.prototype.constructor = LatheBufferGeometry;
 
-	/**
-	 * @author jonobr1 / http://jonobr1.com
-	 * @author Mugen87 / https://github.com/Mugen87
-	 */
+
 
 	// ShapeGeometry
 
@@ -28226,10 +28223,6 @@
 	EdgesGeometry.prototype = Object.create( BufferGeometry.prototype );
 	EdgesGeometry.prototype.constructor = EdgesGeometry;
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 * @author Mugen87 / https://github.com/Mugen87
-	 */
 
 	// CylinderGeometry
 
@@ -28382,25 +28375,21 @@
 
 			}
 
-			// generate indices
 
 			for ( x = 0; x < radialSegments; x ++ ) {
 
 				for ( y = 0; y < heightSegments; y ++ ) {
 
-					// we use the index array to access the correct indices
 
 					var a = indexArray[ y ][ x ];
 					var b = indexArray[ y + 1 ][ x ];
 					var c = indexArray[ y + 1 ][ x + 1 ];
 					var d = indexArray[ y ][ x + 1 ];
 
-					// faces
 
 					indices.push( a, b, d );
 					indices.push( b, c, d );
 
-					// update group counter
 
 					groupCount += 6;
 
@@ -28408,11 +28397,9 @@
 
 			}
 
-			// add a group to the geometry. this will ensure multi material support
 
 			scope.addGroup( groupStart, groupCount, 0 );
 
-			// calculate new start value for groups
 
 			groupStart += groupCount;
 
@@ -28430,12 +28417,9 @@
 			var radius = ( top === true ) ? radiusTop : radiusBottom;
 			var sign = ( top === true ) ? 1 : - 1;
 
-			// save the index of the first center vertex
 			centerIndexStart = index;
 
-			// first we generate the center vertex data of the cap.
-			// because the geometry needs one set of uvs per face,
-			// we must generate a center vertex per face/segment
+	
 
 			for ( x = 1; x <= radialSegments; x ++ ) {
 
@@ -28534,9 +28518,6 @@
 	CylinderBufferGeometry.prototype = Object.create( BufferGeometry.prototype );
 	CylinderBufferGeometry.prototype.constructor = CylinderBufferGeometry;
 
-	/**
-	 * @author abelnation / http://github.com/abelnation
-	 */
 
 	// ConeGeometry
 
@@ -28584,11 +28565,7 @@
 	ConeBufferGeometry.prototype = Object.create( CylinderBufferGeometry.prototype );
 	ConeBufferGeometry.prototype.constructor = ConeBufferGeometry;
 
-	/**
-	 * @author benaadams / https://twitter.com/ben_a_adams
-	 * @author Mugen87 / https://github.com/Mugen87
-	 * @author hughes
-	 */
+
 
 	// CircleGeometry
 
@@ -28677,7 +28654,6 @@
 
 		}
 
-		// indices
 
 		for ( i = 1; i <= segments; i ++ ) {
 
@@ -28685,7 +28661,6 @@
 
 		}
 
-		// build geometry
 
 		this.setIndex( indices );
 		this.addAttribute( 'position', new Float32BufferAttribute( vertices, 3 ) );
@@ -28744,13 +28719,7 @@
 		BoxBufferGeometry: BoxBufferGeometry
 	});
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 *
-	 * parameters = {
-	 *  opacity: <float>
-	 * }
-	 */
+
 
 	function ShadowMaterial( parameters ) {
 
@@ -28789,9 +28758,7 @@
 
 	ShadowMaterial.prototype.isShadowMaterial = true;
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 */
+
 
 	function RawShaderMaterial( parameters ) {
 
@@ -28806,56 +28773,7 @@
 
 	RawShaderMaterial.prototype.isRawShaderMaterial = true;
 
-	/**
-	 * @author WestLangley / http://github.com/WestLangley
-	 *
-	 * parameters = {
-	 *  color: <hex>,
-	 *  roughness: <float>,
-	 *  metalness: <float>,
-	 *  opacity: <float>,
-	 *
-	 *  map: new THREE.Texture( <Image> ),
-	 *
-	 *  lightMap: new THREE.Texture( <Image> ),
-	 *  lightMapIntensity: <float>
-	 *
-	 *  aoMap: new THREE.Texture( <Image> ),
-	 *  aoMapIntensity: <float>
-	 *
-	 *  emissive: <hex>,
-	 *  emissiveIntensity: <float>
-	 *  emissiveMap: new THREE.Texture( <Image> ),
-	 *
-	 *  bumpMap: new THREE.Texture( <Image> ),
-	 *  bumpScale: <float>,
-	 *
-	 *  normalMap: new THREE.Texture( <Image> ),
-	 *  normalScale: <Vector2>,
-	 *
-	 *  displacementMap: new THREE.Texture( <Image> ),
-	 *  displacementScale: <float>,
-	 *  displacementBias: <float>,
-	 *
-	 *  roughnessMap: new THREE.Texture( <Image> ),
-	 *
-	 *  metalnessMap: new THREE.Texture( <Image> ),
-	 *
-	 *  alphaMap: new THREE.Texture( <Image> ),
-	 *
-	 *  envMap: new THREE.CubeTexture( [posx, negx, posy, negy, posz, negz] ),
-	 *  envMapIntensity: <float>
-	 *
-	 *  refractionRatio: <float>,
-	 *
-	 *  wireframe: <boolean>,
-	 *  wireframeLinewidth: <float>,
-	 *
-	 *  skinning: <bool>,
-	 *  morphTargets: <bool>,
-	 *  morphNormals: <bool>
-	 * }
-	 */
+
 
 	function MeshStandardMaterial( parameters ) {
 
@@ -28976,13 +28894,7 @@
 
 	};
 
-	/**
-	 * @author WestLangley / http://github.com/WestLangley
-	 *
-	 * parameters = {
-	 *  reflectivity: <float>
-	 * }
-	 */
+
 
 	function MeshPhysicalMaterial( parameters ) {
 
@@ -29021,55 +28933,7 @@
 
 	};
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 * @author alteredq / http://alteredqualia.com/
-	 *
-	 * parameters = {
-	 *  color: <hex>,
-	 *  specular: <hex>,
-	 *  shininess: <float>,
-	 *  opacity: <float>,
-	 *
-	 *  map: new THREE.Texture( <Image> ),
-	 *
-	 *  lightMap: new THREE.Texture( <Image> ),
-	 *  lightMapIntensity: <float>
-	 *
-	 *  aoMap: new THREE.Texture( <Image> ),
-	 *  aoMapIntensity: <float>
-	 *
-	 *  emissive: <hex>,
-	 *  emissiveIntensity: <float>
-	 *  emissiveMap: new THREE.Texture( <Image> ),
-	 *
-	 *  bumpMap: new THREE.Texture( <Image> ),
-	 *  bumpScale: <float>,
-	 *
-	 *  normalMap: new THREE.Texture( <Image> ),
-	 *  normalScale: <Vector2>,
-	 *
-	 *  displacementMap: new THREE.Texture( <Image> ),
-	 *  displacementScale: <float>,
-	 *  displacementBias: <float>,
-	 *
-	 *  specularMap: new THREE.Texture( <Image> ),
-	 *
-	 *  alphaMap: new THREE.Texture( <Image> ),
-	 *
-	 *  envMap: new THREE.TextureCube( [posx, negx, posy, negy, posz, negz] ),
-	 *  combine: THREE.Multiply,
-	 *  reflectivity: <float>,
-	 *  refractionRatio: <float>,
-	 *
-	 *  wireframe: <boolean>,
-	 *  wireframeLinewidth: <float>,
-	 *
-	 *  skinning: <bool>,
-	 *  morphTargets: <bool>,
-	 *  morphNormals: <bool>
-	 * }
-	 */
+
 
 	function MeshPhongMaterial( parameters ) {
 
@@ -29182,13 +29046,7 @@
 
 	};
 
-	/**
-	 * @author takahirox / http://github.com/takahirox
-	 *
-	 * parameters = {
-	 *  gradientMap: new THREE.Texture( <Image> )
-	 * }
-	 */
+
 
 	function MeshToonMaterial( parameters ) {
 
@@ -29219,31 +29077,6 @@
 
 	};
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 * @author WestLangley / http://github.com/WestLangley
-	 *
-	 * parameters = {
-	 *  opacity: <float>,
-	 *
-	 *  bumpMap: new THREE.Texture( <Image> ),
-	 *  bumpScale: <float>,
-	 *
-	 *  normalMap: new THREE.Texture( <Image> ),
-	 *  normalScale: <Vector2>,
-	 *
-	 *  displacementMap: new THREE.Texture( <Image> ),
-	 *  displacementScale: <float>,
-	 *  displacementBias: <float>,
-	 *
-	 *  wireframe: <boolean>,
-	 *  wireframeLinewidth: <float>
-	 *
-	 *  skinning: <bool>,
-	 *  morphTargets: <bool>,
-	 *  morphNormals: <bool>
-	 * }
-	 */
 
 	function MeshNormalMaterial( parameters ) {
 
@@ -29305,44 +29138,7 @@
 
 	};
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 * @author alteredq / http://alteredqualia.com/
-	 *
-	 * parameters = {
-	 *  color: <hex>,
-	 *  opacity: <float>,
-	 *
-	 *  map: new THREE.Texture( <Image> ),
-	 *
-	 *  lightMap: new THREE.Texture( <Image> ),
-	 *  lightMapIntensity: <float>
-	 *
-	 *  aoMap: new THREE.Texture( <Image> ),
-	 *  aoMapIntensity: <float>
-	 *
-	 *  emissive: <hex>,
-	 *  emissiveIntensity: <float>
-	 *  emissiveMap: new THREE.Texture( <Image> ),
-	 *
-	 *  specularMap: new THREE.Texture( <Image> ),
-	 *
-	 *  alphaMap: new THREE.Texture( <Image> ),
-	 *
-	 *  envMap: new THREE.TextureCube( [posx, negx, posy, negy, posz, negz] ),
-	 *  combine: THREE.Multiply,
-	 *  reflectivity: <float>,
-	 *  refractionRatio: <float>,
-	 *
-	 *  wireframe: <boolean>,
-	 *  wireframeLinewidth: <float>,
-	 *
-	 *  skinning: <bool>,
-	 *  morphTargets: <bool>,
-	 *  morphNormals: <bool>
-	 * }
-	 */
-
+	
 	function MeshLambertMaterial( parameters ) {
 
 		Material.call( this );
@@ -29430,21 +29226,6 @@
 
 	};
 
-	/**
-	 * @author alteredq / http://alteredqualia.com/
-	 *
-	 * parameters = {
-	 *  color: <hex>,
-	 *  opacity: <float>,
-	 *
-	 *  linewidth: <float>,
-	 *
-	 *  scale: <float>,
-	 *  dashSize: <float>,
-	 *  gapSize: <float>
-	 * }
-	 */
-
 	function LineDashedMaterial( parameters ) {
 
 		Material.call( this );
@@ -29507,9 +29288,7 @@
 		Material: Material
 	});
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 */
+
 
 	var Cache = {
 
@@ -29521,7 +29300,6 @@
 
 			if ( this.enabled === false ) return;
 
-			// console.log( 'THREE.Cache', 'Adding key:', key );
 
 			this.files[ key ] = file;
 
@@ -29531,7 +29309,6 @@
 
 			if ( this.enabled === false ) return;
 
-			// console.log( 'THREE.Cache', 'Checking key:', key );
 
 			return this.files[ key ];
 
@@ -29551,9 +29328,6 @@
 
 	};
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 */
 
 	function LoadingManager( onLoad, onProgress, onError ) {
 
@@ -29622,9 +29396,7 @@
 
 	var DefaultLoadingManager = new LoadingManager();
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 */
+
 
 	function FileLoader( manager ) {
 
@@ -29660,11 +29432,9 @@
 
 			}
 
-			// Check for data: URI
 			var dataUriRegex = /^data:(.*?)(;base64)?,(.*)$/;
 			var dataUriRegexResult = url.match( dataUriRegex );
 
-			// Safari can not handle Data URIs through XMLHttpRequest so process manually
 			if ( dataUriRegexResult ) {
 
 				var mimeType = dataUriRegexResult[ 1 ];
@@ -29724,7 +29494,6 @@
 
 					}
 
-					// Wait for next browser tick
 					window.setTimeout( function () {
 
 						if ( onLoad ) onLoad( response );
@@ -29735,7 +29504,6 @@
 
 				} catch ( error ) {
 
-					// Wait for next browser tick
 					window.setTimeout( function () {
 
 						if ( onError ) onError( error );
@@ -29766,8 +29534,6 @@
 
 					} else if ( this.status === 0 ) {
 
-						// Some browsers return HTTP Status 0 when using non-http protocol
-						// e.g. 'file://' or 'data://'. Handle as success.
 
 						console.warn( 'THREE.FileLoader: HTTP Status 0 received.' );
 
@@ -29863,17 +29629,12 @@
 
 	} );
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 *
-	 * Abstract Base class to block based textures loader (dds, pvr, ...)
-	 */
+
 
 	function CompressedTextureLoader( manager ) {
 
 		this.manager = ( manager !== undefined ) ? manager : DefaultLoadingManager;
 
-		// override in sub classes
 		this._parser = null;
 
 	}
@@ -29936,7 +29697,6 @@
 
 			} else {
 
-				// compressed cubemap texture stored in a single DDS file
 
 				loader.load( url, function ( buffer ) {
 
@@ -29997,17 +29757,12 @@
 
 	} );
 
-	/**
-	 * @author Nikos M. / https://github.com/foo123/
-	 *
-	 * Abstract Base class to load generic binary textures formats (rgbe, hdr, ...)
-	 */
+
 
 	function DataTextureLoader( manager ) {
 
 		this.manager = ( manager !== undefined ) ? manager : DefaultLoadingManager;
 
-		// override in sub classes
 		this._parser = null;
 
 	}
@@ -30085,9 +29840,7 @@
 
 	} );
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 */
+
 
 	function ImageLoader( manager ) {
 
@@ -30182,9 +29935,6 @@
 
 	} );
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 */
 
 	function CubeTextureLoader( manager ) {
 
@@ -30250,9 +30000,7 @@
 
 	} );
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 */
+
 
 	function TextureLoader( manager ) {
 
