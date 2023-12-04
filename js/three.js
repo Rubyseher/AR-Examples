@@ -3,20 +3,10 @@
 	typeof define === 'function' && define.amd ? define(['exports'], factory) :
 	(factory((global.THREE = global.THREE || {})));
 }(this, (function (exports) { 'use strict';
-
-	// Polyfills
-
 	if ( Number.EPSILON === undefined ) {
-
 		Number.EPSILON = Math.pow( 2, - 52 );
-
 	}
-
 	if ( Number.isInteger === undefined ) {
-
-		// Missing in IE
-		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger
-
 		Number.isInteger = function ( value ) {
 
 			return typeof value === 'number' && isFinite( value ) && Math.floor( value ) === value;
@@ -25,11 +15,9 @@
 
 	}
 
-	//
 
 	if ( Math.sign === undefined ) {
 
-		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign
 
 		Math.sign = function ( x ) {
 
@@ -41,8 +29,6 @@
 
 	if ( Function.prototype.name === undefined ) {
 
-		// Missing in IE
-		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name
 
 		Object.defineProperty( Function.prototype, 'name', {
 
@@ -57,9 +43,6 @@
 	}
 
 	if ( Object.assign === undefined ) {
-
-		// Missing in IE
-		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 
 		( function () {
 
@@ -103,9 +86,6 @@
 
 	}
 
-	/**
-	 * https://github.com/mrdoob/eventdispatcher.js/
-	 */
 
 	function EventDispatcher() {}
 
@@ -313,10 +293,7 @@
 	var BasicDepthPacking = 3200;
 	var RGBADepthPacking = 3201;
 
-	/**
-	 * @author alteredq / http://alteredqualia.com/
-	 * @author mrdoob / http://mrdoob.com/
-	 */
+
 
 	var _Math = {
 
@@ -325,7 +302,6 @@
 
 		generateUUID: function () {
 
-			// http://www.broofa.com/Tools/Math.uuid.htm
 
 			var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split( '' );
 			var uuid = new Array( 36 );
@@ -366,8 +342,6 @@
 
 		},
 
-		// compute euclidian modulo of m % n
-		// https://en.wikipedia.org/wiki/Modulo_operation
 
 		euclideanModulo: function ( n, m ) {
 
@@ -375,7 +349,6 @@
 
 		},
 
-		// Linear mapping from range <a1, a2> to range <b1, b2>
 
 		mapLinear: function ( x, a1, a2, b1, b2 ) {
 
@@ -383,7 +356,6 @@
 
 		},
 
-		// https://en.wikipedia.org/wiki/Linear_interpolation
 
 		lerp: function ( x, y, t ) {
 
@@ -391,7 +363,6 @@
 
 		},
 
-		// http://en.wikipedia.org/wiki/Smoothstep
 
 		smoothstep: function ( x, min, max ) {
 
@@ -415,7 +386,6 @@
 
 		},
 
-		// Random integer from <low, high> interval
 
 		randInt: function ( low, high ) {
 
@@ -423,15 +393,11 @@
 
 		},
 
-		// Random float from <low, high> interval
-
 		randFloat: function ( low, high ) {
 
 			return low + Math.random() * ( high - low );
 
 		},
-
-		// Random float from <-range/2, range/2> interval
 
 		randFloatSpread: function ( range ) {
 
@@ -479,12 +445,6 @@
 
 	};
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 * @author philogb / http://blog.thejit.org/
-	 * @author egraether / http://egraether.com/
-	 * @author zz85 / http://www.lab4games.net/zz85/blog
-	 */
 
 	function Vector2( x, y ) {
 
@@ -738,7 +698,6 @@
 
 		clamp: function ( min, max ) {
 
-			// assumes min < max, componentwise
 
 			this.x = Math.max( min.x, Math.min( max.x, this.x ) );
 			this.y = Math.max( min.y, Math.min( max.y, this.y ) );
@@ -848,7 +807,6 @@
 
 		angle: function () {
 
-			// computes the angle in radians with respect to the positive x-axis
 
 			var angle = Math.atan2( this.y, this.x );
 
@@ -958,11 +916,6 @@
 
 	} );
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 * @author alteredq / http://alteredqualia.com/
-	 * @author szimek / https://github.com/szimek/
-	 */
 
 	var textureId = 0;
 
@@ -996,12 +949,8 @@
 		this.generateMipmaps = true;
 		this.premultiplyAlpha = false;
 		this.flipY = true;
-		this.unpackAlignment = 4;	// valid values: 1, 2, 4, 8 (see http://www.khronos.org/opengles/sdk/docs/man/xhtml/glPixelStorei.xml)
+		this.unpackAlignment = 4;	
 
-		// Values of encoding !== THREE.LinearEncoding only supported on map, envMap and emissiveMap.
-		//
-		// Also changing the encoding after already used by a Material will not automatically make the Material
-		// update.  You need to explicitly call Material.needsUpdate to trigger it to recompile.
 		this.encoding = encoding !== undefined ? encoding : LinearEncoding;
 
 		this.version = 0;
@@ -1130,7 +1079,6 @@
 
 			if ( this.image !== undefined ) {
 
-				// TODO: Move to THREE.Image
 
 				var image = this.image;
 
@@ -1244,13 +1192,6 @@
 
 	} );
 
-	/**
-	 * @author supereggbert / http://www.paulbrunt.co.uk/
-	 * @author philogb / http://blog.thejit.org/
-	 * @author mikael emtinger / http://gomo.se/
-	 * @author egraether / http://egraether.com/
-	 * @author WestLangley / http://github.com/WestLangley
-	 */
 
 	function Vector4( x, y, z, w ) {
 
@@ -1490,9 +1431,6 @@
 
 		setAxisAngleFromQuaternion: function ( q ) {
 
-			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/index.htm
-
-			// q is assumed to be normalized
 
 			this.w = 2 * Math.acos( q.w );
 
@@ -1518,9 +1456,6 @@
 
 		setAxisAngleFromRotationMatrix: function ( m ) {
 
-			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
-
-			// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
 
 			var angle, x, y, z,		// variables for result
 				epsilon = 0.01,		// margin to allow for rounding errors
@@ -1545,7 +1480,6 @@
 				     ( Math.abs( m23 + m32 ) < epsilon2 ) &&
 				     ( Math.abs( m11 + m22 + m33 - 3 ) < epsilon2 ) ) {
 
-					// this singularity is identity matrix so angle = 0
 
 					this.set( 1, 0, 0, 0 );
 
@@ -1553,7 +1487,6 @@
 
 				}
 
-				// otherwise this singularity is angle = 180
 
 				angle = Math.PI;
 
@@ -1566,7 +1499,6 @@
 
 				if ( ( xx > yy ) && ( xx > zz ) ) {
 
-					// m11 is the largest diagonal term
 
 					if ( xx < epsilon ) {
 
@@ -1584,7 +1516,6 @@
 
 				} else if ( yy > zz ) {
 
-					// m22 is the largest diagonal term
 
 					if ( yy < epsilon ) {
 
@@ -1602,7 +1533,6 @@
 
 				} else {
 
-					// m33 is the largest diagonal term so base result on this
 
 					if ( zz < epsilon ) {
 
@@ -1626,7 +1556,6 @@
 
 			}
 
-			// as we have reached here there are no singularities so we can handle normally
 
 			var s = Math.sqrt( ( m32 - m23 ) * ( m32 - m23 ) +
 			                   ( m13 - m31 ) * ( m13 - m31 ) +
@@ -1634,8 +1563,6 @@
 
 			if ( Math.abs( s ) < 0.001 ) s = 1;
 
-			// prevent divide by zero, should not happen if matrix is orthogonal and should be
-			// caught by singularity test above, but I've left it in just in case
 
 			this.x = ( m32 - m23 ) / s;
 			this.y = ( m13 - m31 ) / s;
@@ -1670,7 +1597,6 @@
 
 		clamp: function ( min, max ) {
 
-			// assumes min < max, componentwise
 
 			this.x = Math.max( min.x, Math.min( max.x, this.x ) );
 			this.y = Math.max( min.y, Math.min( max.y, this.y ) );
@@ -1871,17 +1797,7 @@
 
 	} );
 
-	/**
-	 * @author szimek / https://github.com/szimek/
-	 * @author alteredq / http://alteredqualia.com/
-	 * @author Marius Kintel / https://github.com/kintel
-	 */
 
-	/*
-	 In options, we can specify:
-	 * Texture parameters for an auto-generated target texture
-	 * depthBuffer/stencilBuffer: Booleans to indicate if we should generate these buffers
-	*/
 	function WebGLRenderTarget( width, height, options ) {
 
 		this.uuid = _Math.generateUUID();
@@ -2001,7 +1917,6 @@
 
 		slerpFlat: function ( dst, dstOffset, src0, srcOffset0, src1, srcOffset1, t ) {
 
-			// fuzz-free, array-based Quaternion SLERP operation
 
 			var x0 = src0[ srcOffset0 + 0 ],
 				y0 = src0[ srcOffset0 + 1 ],
@@ -2022,7 +1937,6 @@
 					dir = ( cos >= 0 ? 1 : - 1 ),
 					sqrSin = 1 - cos * cos;
 
-				// Skip the Slerp for tiny steps to avoid numeric problems:
 				if ( sqrSin > Number.EPSILON ) {
 
 					var sin = Math.sqrt( sqrSin ),
@@ -2040,7 +1954,6 @@
 				z0 = z0 * s + z1 * tDir;
 				w0 = w0 * s + w1 * tDir;
 
-				// Normalize in case we just did a lerp:
 				if ( s === 1 - t ) {
 
 					var f = 1 / Math.sqrt( x0 * x0 + y0 * y0 + z0 * z0 + w0 * w0 );
@@ -2179,9 +2092,7 @@
 
 			var x = euler._x, y = euler._y, z = euler._z, order = euler.order;
 
-			// http://www.mathworks.com/matlabcentral/fileexchange/
-			// 	20696-function-to-convert-between-dcm-euler-angles-quaternions-and-euler-vectors/
-			//	content/SpinCalc.m
+
 
 			var cos = Math.cos;
 			var sin = Math.sin;
@@ -2246,9 +2157,6 @@
 
 		setFromAxisAngle: function ( axis, angle ) {
 
-			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm
-
-			// assumes axis is normalized
 
 			var halfAngle = angle / 2, s = Math.sin( halfAngle );
 
@@ -2265,9 +2173,6 @@
 
 		setFromRotationMatrix: function ( m ) {
 
-			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
-
-			// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
 
 			var te = m.elements,
 
@@ -2324,7 +2229,6 @@
 
 		setFromUnitVectors: function () {
 
-			// assumes direction vectors vFrom and vTo are normalized
 
 			var v1 = new Vector3();
 			var r;
@@ -2453,7 +2357,6 @@
 
 		multiplyQuaternions: function ( a, b ) {
 
-			// from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
 
 			var qax = a._x, qay = a._y, qaz = a._z, qaw = a._w;
 			var qbx = b._x, qby = b._y, qbz = b._z, qbw = b._w;
@@ -2476,7 +2379,6 @@
 
 			var x = this._x, y = this._y, z = this._z, w = this._w;
 
-			// http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/
 
 			var cosHalfTheta = w * qb._w + x * qb._x + y * qb._y + z * qb._z;
 
@@ -2581,14 +2483,6 @@
 
 	} );
 
-	/**
-	 * @author mrdoob / http://mrdoob.com/
-	 * @author kile / http://kile.stravaganza.org/
-	 * @author philogb / http://blog.thejit.org/
-	 * @author mikael emtinger / http://gomo.se/
-	 * @author egraether / http://egraether.com/
-	 * @author WestLangley / http://github.com/WestLangley
-	 */
 
 	function Vector3( x, y, z ) {
 
@@ -2919,8 +2813,6 @@
 
 		transformDirection: function ( m ) {
 
-			// input: THREE.Matrix4 affine matrix
-			// vector interpreted as a direction
 
 			var x = this.x, y = this.y, z = this.z;
 			var e = m.elements;
